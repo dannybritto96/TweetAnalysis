@@ -9,4 +9,4 @@
 
 ![alt Screenshot1](https://raw.githubusercontent.com/dannybritto96/TweetAnalysis/master/img1.png)
 
-[!alt Screenshot2](https://raw.githubusercontent.com/dannybritto96/TweetAnalysis/master/img2.png)
+![alt Screenshot2](https://raw.githubusercontent.com/dannybritto96/TweetAnalysis/master/img2.png)
