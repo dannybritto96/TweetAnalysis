@@ -1,0 +1,181 @@
+{% extends "analysisApp/base.html" %}
+
+{% block js %}
+  <script>
+    setTimeout(function(){
+      odometer.innerHTML = {{followers_count}};
+    },1000);
+  </script>
+  <script type="text/javascript">
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Sentiment','Percentage'],
+      ['Positive',{{positive}}],
+      ['Negative',{{negative}}],
+      ['Neutral',{{neutral}}],
+    ]);
+
+    var options = {
+      title: '',
+      legend: 'none',
+      pieSliceText: 'label',
+      slices: {  4: {offset: 0.2},
+                12: {offset: 0.3},
+                14: {offset: 0.4},
+                15: {offset: 0.5},
+      },
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    chart.draw(data, options);
+  }
+  </script>
+  <script type="text/javascript">
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Sentiment','Percentage'],
+      ['Positive',{{positive_mentions}}],
+      ['Negative',{{negative_mentions}}],
+      ['Neutral',{{neutral_mentions}}],
+    ]);
+
+    var options = {
+      title: '',
+      legend: 'none',
+      pieSliceText: 'label',
+      slices: {  4: {offset: 0.2},
+                12: {offset: 0.3},
+                14: {offset: 0.4},
+                15: {offset: 0.5},
+      },
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart_mentions'));
+    chart.draw(data, options);
+  }
+  </script>
+{% endblock js %}
+{% block titleblock %}
+  <title>Home</title>
+{% endblock titleblock %}
+{% block dashboard_active %}<span class="sr-only">(current)</span>{% endblock dashboard_active %}
+{% block content %}
+<br />
+  <div class="container">
+    Hi <strong>{{username}}</strong>,
+      <br />
+      <div class="row">
+        <div class="col-md-6">
+          <h4>
+            Number of followers
+            <span id="odometer" class="odometer">
+              003
+            </span>
+          </h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+            <h3>Sentiment Analysis on last 200 tweets of <span style="color:#00aced">{{username}}</span></h3>
+            <div id='piechart' style="width: 300px; height: 300px;"></div>
+        </div>
+        <div class="col-md-6">
+            <h3>Sentiment Analysis on last 200 mentions of <span style="color:#00aced">{{username}}</span></h3>
+            <div id='piechart_mentions' style="width: 300px; height: 300px;"></div>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Number of Tweets <br />by <strong>languages</strong></h3>
+          <br />
+          <table class="table table-hover">
+            <thead style="color:#00aced; background-color:transparent;">
+              <tr>
+                <th scope="col">
+                  Language
+                </th>
+                <th scope="col">
+                  Number of Tweets
+                </th scope="col">
+              </tr>
+            </thead>
+            <tbody>
+              {% for key,value in lang_dict  %}
+              <tr>
+                <th scope="row">
+                  {{key}}
+                </th>
+                <td>
+                  {{value}}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-6">
+          <h3>Most used words in tweets<br />by <span style="color:#00aced">{{username}}</span></h3>
+          <br />
+          <table class="table table-hover">
+            <thead style="color:#00aced; background-color:transparent;">
+              <tr>
+                <th scope="col">
+                  Word
+                </th>
+                <th scope="col">
+                  Number of Occurences
+                </th scope="col">
+              </tr>
+            </thead>
+            <tbody>
+              {% for key,value in cleaned_tweet_text  %}
+              <tr>
+                <th scope="row">
+                  {{key}}
+                </th>
+                <td>
+                  {{value}}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Top hashtags used<br />by <span style="color:#00aced">{{username}}</span></h3>
+          <br />
+          <table class="table table-hover">
+            <thead style="color:#00aced; background-color:transparent;">
+              <tr>
+                <th scope="col">
+                  Hashtag
+                </th>
+                <th scope="col">
+                  Number of times used
+                </th scope="col">
+              </tr>
+            </thead>
+            <tbody>
+              {% for key,value in cleaned_hashtags  %}
+              <tr>
+                <th scope="row">
+                  #{{key}}
+                </th>
+                <td>
+                  {{value}}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+  </div>
+{% endblock content %}

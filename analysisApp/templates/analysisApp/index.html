@@ -1,0 +1,22 @@
+{% extends "analysisApp/base.html" %}
+
+{% block titleblock %}
+  <title>Index</title>
+{% endblock titleblock %}
+
+{% block js %}{% endblock js %}
+
+{% block content %}
+  <div class="container">
+    <div class="jumbotron" style="background-color:transparent !important;">
+      <h1>Twitter Analysis</h1>
+      <p class="lead">
+        Sign in with Twitter to reveal interesting insights about your Twitter profile.
+      </p>
+      <a style="color:white;" class="btn btn-primary btn-lg" href="{% url 'login' %}">Sign In</a>
+
+    </div>
+  </div>
+
+
+{% endblock content %}

@@ -1,0 +1,15 @@
+pip:
+
+oauth2
+datetime
+json
+cgi
+re
+tweepy twitter
+nltk
+django
+Celery
+
+brew:
+
+RabbitMQ
