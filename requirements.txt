@@ -2,13 +2,11 @@ pip:
 
 oauth2
 datetime
-json
-cgi
-re
-tweepy twitter
+tweepy 
+python-twitter
 nltk
 django
-Celery
+celery
 
 brew:
 
